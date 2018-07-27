@@ -24,7 +24,7 @@ echo "Setting up $code $2 -q $3:prof..."
 
 setup ninja v1_8_2
 echo "Setting up ninja v1_8_2..."
-setup $code $1 -q $2:prof
+setup $code $2 -q $3:prof
 mrb newDev
 source local*/setup
 cd srcs
