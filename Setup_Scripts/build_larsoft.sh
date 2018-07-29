@@ -22,12 +22,12 @@ setup_script_creation () {
     echo "run 'source local*/setup'" >> setup_${code}_${version}_${qual}.sh;
     echo "run 'mrbslp'" >> setup_${code}_${version}_${qual}.sh;
     echo "   " >> setup_${code}_${version}_${qual}.sh;
-    echo "Setup Complete... environmental variables have been set:" >> setup_${code}_${version}_${qual}.sh;
-    echo "${PREFIX}_SCRATCH" >> setup_${code}_${version}_${qual}.sh;
-    echo "${PREFIX}_PERSISTENT" >> setup_${code}_${version}_${qual}.sh;
-    echo "${PREFIX}DATA" >> setup_${code}_${version}_${qual}.sh;
-    echo "${PREFIX}APP" >> setup_${code}_${version}_${qual}.sh;
-    echo "${PREFIX}SRCS" >> setup_${code}_${version}_${qual}.sh;
+    echo "echo 'Setup Complete... environmental variables have been set:'" >> setup_${code}_${version}_${qual}.sh;
+    echo "echo '${PREFIX}_SCRATCH'" >> setup_${code}_${version}_${qual}.sh;
+    echo "echo '${PREFIX}_PERSISTENT'" >> setup_${code}_${version}_${qual}.sh;
+    echo "echo '${PREFIX}DATA'" >> setup_${code}_${version}_${qual}.sh;
+    echo "echo '${PREFIX}APP'" >> setup_${code}_${version}_${qual}.sh;
+    echo "echo '${PREFIX}SRCS'" >> setup_${code}_${version}_${qual}.sh;
     echo "   " >> setup_${code}_${version}_${qual}.sh;
     echo "export ${PREFIX}_SCRATCH=/pnfs/${experiment}/scratch/users/${USER}" >> setup_${code}_${version}_${qual}.sh;
     echo "export ${PREFIX}_PERSISTENT=/pnfs/${experiment}/persistent/users/${USER}" >> setup_${code}_${version}_${qual}.sh;
