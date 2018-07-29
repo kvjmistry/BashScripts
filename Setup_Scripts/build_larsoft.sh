@@ -39,13 +39,18 @@ setup_script_creation () {
 
 # Create the setup file and initialize
 run "touch setup_${code}_${version}_${qual}.sh";
+echo 'run(){' >> source_${DIRNAME}.sh;
+echo '  COLOR="\033[1;33m"' >> source_${DIRNAME}.sh;
+echo '  COLOR="\033[1;33m"' >> source_${DIRNAME}.sh;
+echo '  DEFAULT="\033[0m"' >> source_${DIRNAME}.sh;
+echo '  echo -e "${COLOR}-> ${1}${DEFAULT}";' >> source_${DIRNAME}.sh;
+echo '  eval ${1};' >> source_${DIRNAME}.sh;
+echo '}' >> source_${DIRNAME}.sh;
 echo "#!bin/bash" >> setup_${code}_${version}_${qual}.sh;
 echo "   " >> setup_${code}_${version}_${qual}.sh;
 
-
 if [ $code == "uboonecode" ]
 then
-   #code=uboonecode
    experiment=uboone
    PREFIX=UB
    source /grid/fermiapp/products/uboone/setup_uboone.sh
@@ -55,7 +60,6 @@ then
    echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${experiment}/" >> setup_${code}_${version}_${qual}.sh;
 elif [ $code == "sbndcode" ]
 then
-   #code=sbndcode
    experiment=sbnd
    PREFIX=SBND
    source /grid/fermiapp/larsoft/products/setup
@@ -66,8 +70,7 @@ then
    setup_script_creation 
    echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${code}/" >> setup_${code}_${version}_${qual}.sh;
 elif [ $code == "lariatsoft" ]
-then
-    #code=lariatsoft
+then 
     experiment=lariat
     PREFIX=LARIAT
     source /grid/fermiapp/larsoft/products/setup
@@ -81,23 +84,20 @@ else
    echo "Invalid experiment code input, enter lariatsoft, uboonecode or sbndcode"
 fi
 
+echo "Setting up ${code} ${version} -q ${qual}:prof..."
 
+run "setup ninja v1_8_2";
+run "setup ${code} ${version} -q ${qual}:prof";
+run "mrb newDev";
+run "source local*/setup";
+run "cd srcs";
+run "mrb g -t ${version} ${code}";
+run "cd ${MRB_BUILDDIR}";
+run "mrbsetenv";
+echo "Now Building Larsoft...";
+run "mrb i --generator ninja -j 32";
+run "mrbslp";
+run "cd ..";
 
-
-# echo "Setting up ${code} ${version} -q ${qual}:prof..."
-
-# run "setup ninja v1_8_2";
-# run "setup ${code} ${version} -q ${qual}:prof";
-# run "mrb newDev";
-# run "source local*/setup";
-# run "cd srcs";
-# run "mrb g -t ${version} ${code}";
-# run "cd ${MRB_BUILDDIR}";
-# run "mrbsetenv";
-# echo "Now Building Larsoft...";
-# run "mrb i --generator ninja -j 32";
-# run "mrbslp";
-# run "cd ..";
-
-# echo "SETUP DONE!"
+echo "SETUP DONE!"
 #########################
