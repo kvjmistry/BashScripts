@@ -88,7 +88,7 @@ echo "Setting up ${code} ${version} -q ${qual}:prof..."
 
 run "setup ninja v1_8_2";
 run "setup ${code} ${version} -q ${qual}:prof";
-run "mrb newDev";
+run "mrb newDev -f";
 run "source local*/setup";
 run "cd srcs";
 run "mrb g -t ${version} ${code}";
