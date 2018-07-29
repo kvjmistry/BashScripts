@@ -39,13 +39,13 @@ setup_script_creation () {
 
 # Create the setup file and initialize
 run "touch setup_${code}_${version}_${qual}.sh";
-echo 'run(){' >> source_${DIRNAME}.sh;
-echo '  COLOR="\033[1;33m"' >> source_${DIRNAME}.sh;
-echo '  COLOR="\033[1;33m"' >> source_${DIRNAME}.sh;
-echo '  DEFAULT="\033[0m"' >> source_${DIRNAME}.sh;
-echo '  echo -e "${COLOR}-> ${1}${DEFAULT}";' >> source_${DIRNAME}.sh;
-echo '  eval ${1};' >> source_${DIRNAME}.sh;
-echo '}' >> source_${DIRNAME}.sh;
+echo 'run(){' >> setup_${code}_${version}_${qual}.sh;
+echo '  COLOR="\033[1;33m"' >> setup_${code}_${version}_${qual}.sh;
+echo '  COLOR="\033[1;33m"' >> setup_${code}_${version}_${qual}.sh;
+echo '  DEFAULT="\033[0m"' >> setup_${code}_${version}_${qual}.sh;
+echo '  echo -e "${COLOR}-> ${1}${DEFAULT}";' >> setup_${code}_${version}_${qual}.sh;
+echo '  eval ${1};' >> setup_${code}_${version}_${qual}.sh;
+echo '}' >> setup_${code}_${version}_${qual}.sh;
 echo "#!bin/bash" >> setup_${code}_${version}_${qual}.sh;
 echo "   " >> setup_${code}_${version}_${qual}.sh;
 
