@@ -96,8 +96,9 @@ run "cd ${MRB_BUILDDIR}";
 run "mrbsetenv";
 echo "Now Building Larsoft...";
 run "mrb i --generator ninja";
-run "mrbslp";
 run "cd ..";
+run "mrbslp";
+
 
 echo "SETUP DONE!"
 #########################
