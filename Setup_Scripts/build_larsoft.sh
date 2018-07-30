@@ -95,7 +95,7 @@ run "mrb g -t ${version} ${code}";
 run "cd ${MRB_BUILDDIR}";
 run "mrbsetenv";
 echo "Now Building Larsoft...";
-run "mrb i --generator ninja -j 32";
+run "mrb i --generator ninja";
 run "mrbslp";
 run "cd ..";
 
