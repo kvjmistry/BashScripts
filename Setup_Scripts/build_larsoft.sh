@@ -2,6 +2,7 @@
 # This setup script will build an experiment code whilst taking an input 
 # and will also create a setup script for you in the current directory.
 # to run this code run source build_larsoft.sh <experimentcode> v08_xx_xx eXX
+# if you are NOT krishan, then make sure you change the username variable!
 
 USER=kmistry
 code=${1}
@@ -16,6 +17,7 @@ run(){
   eval ${1};
 }
 
+# function that creates the meat of the setup script
 setup_script_creation () {
     echo "run 'setup ${code} ${version} -q ${qual}:prof'" >> setup_${code}_${version}_${qual}.sh;
     echo "run 'setup ninja v1_8_2'"  >> setup_${code}_${version}_${qual}.sh;
@@ -39,6 +41,8 @@ setup_script_creation () {
 
 # Create the setup file and initialize
 run "touch setup_${code}_${version}_${qual}.sh";
+echo "#!/bin/bash" >> setup_${code}_${version}_${qual}.sh;
+echo "   " >> setup_${code}_${version}_${qual}.sh;
 echo 'run(){' >> setup_${code}_${version}_${qual}.sh;
 echo '  COLOR="\033[1;33m"' >> setup_${code}_${version}_${qual}.sh;
 echo '  COLOR="\033[1;33m"' >> setup_${code}_${version}_${qual}.sh;
@@ -46,8 +50,8 @@ echo '  DEFAULT="\033[0m"' >> setup_${code}_${version}_${qual}.sh;
 echo '  echo -e "${COLOR}-> ${1}${DEFAULT}";' >> setup_${code}_${version}_${qual}.sh;
 echo '  eval ${1};' >> setup_${code}_${version}_${qual}.sh;
 echo '}' >> setup_${code}_${version}_${qual}.sh;
-echo "#!bin/bash" >> setup_${code}_${version}_${qual}.sh;
 echo "   " >> setup_${code}_${version}_${qual}.sh;
+
 
 if [ $code == "uboonecode" ]
 then
@@ -65,7 +69,7 @@ then
    source /grid/fermiapp/larsoft/products/setup
    source /cvmfs/sbnd.opensciencegrid.org/products/sbnd/setup_sbnd.sh
    echo "run 'source /grid/fermiapp/larsoft/products/setup'" >> setup_${code}_${version}_${qual}.sh;
-   echo "run '/cvmfs/sbnd.opensciencegrid.org/products/sbnd/setup_sbnd.sh'" >> setup_${code}_${version}_${qual}.sh;
+   echo "run 'source /cvmfs/sbnd.opensciencegrid.org/products/sbnd/setup_sbnd.sh'" >> setup_${code}_${version}_${qual}.sh;
    # Call setup script function
    setup_script_creation 
    echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${code}/" >> setup_${code}_${version}_${qual}.sh;
@@ -76,7 +80,7 @@ then
     source /grid/fermiapp/larsoft/products/setup
     source /grid/fermiapp/lariat/setup_lariat.sh
     echo "run 'source /grid/fermiapp/larsoft/products/setup'" >> setup_${code}_${version}_${qual}.sh;
-    echo "run '/grid/fermiapp/lariat/setup_lariat.sh'" >> setup_${code}_${version}_${qual}.sh;
+    echo "run 'source /grid/fermiapp/lariat/setup_lariat.sh'" >> setup_${code}_${version}_${qual}.sh;
     # Call setup script function
     setup_script_creation 
     echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/" >> setup_${code}_${version}_${qual}.sh;
