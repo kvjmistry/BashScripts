@@ -3,11 +3,17 @@
 # and will also create a setup script for you in the current directory.
 # to run this code run source build_larsoft.sh <experimentcode> v08_xx_xx eXX
 # if you are NOT krishan, then make sure you change the username variable!
+# if you want to clone a packge such as larsim, change the varibles at top and uncomment the parts near the bottom
 
 USER=kmistry
 code=${1}
 version=${2}
 qual=${3}
+# Make sure you uncomment the relavent parts
+Larsoft_ver='v06_26_01_13' # use these for builing with larsim etc. 
+Larsoft_qual='e10'
+package='larevt'
+package_ver='v06_26_01'
 
 ##### AUX FUNCTIONS #####
 run(){
@@ -19,6 +25,7 @@ run(){
 
 # function that creates the meat of the setup script
 setup_script_creation () {
+    run "Creating Setup Script..."
     echo "run 'setup ${code} ${version} -q ${qual}:prof'" >> setup_${code}_${version}_${qual}.sh;
     echo "run 'setup ninja v1_8_2'"  >> setup_${code}_${version}_${qual}.sh;
     echo "run 'source local*/setup'" >> setup_${code}_${version}_${qual}.sh;
@@ -62,6 +69,10 @@ then
    # Call setup script function
    setup_script_creation 
    echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${experiment}/" >> setup_${code}_${version}_${qual}.sh;
+   echo "  " >> setup_${code}_${version}_${qual}.sh;
+   echo "echo 'Setting up larbacth to latest version'" >> setup_${code}_${version}_${qual}.sh;
+   echo "run unsetup larbatch" >> setup_${code}_${version}_${qual}.sh;
+   echo "run setup larbatch" >> setup_${code}_${version}_${qual}.sh;
 elif [ $code == "sbndcode" ]
 then
    experiment=sbnd
@@ -88,21 +99,21 @@ else
    echo "Invalid experiment code input, enter lariatsoft, uboonecode or sbndcode"
 fi
 
-echo "Setting up ${code} ${version} -q ${qual}:prof..."
-
+run "Setting up ${code} ${version} -q ${qual}:prof..."
 run "setup ninja v1_8_2";
+#run "setup larsoft ${Larsoft_ver} -q ${Larsoft_qual}"
 run "setup ${code} ${version} -q ${qual}:prof";
 run "mrb newDev -f";
 run "source local*/setup";
 run "cd srcs";
+#run "mrb g -t ${package} ${package_ver}";
 run "mrb g -t ${version} ${code}";
 run "cd ${MRB_BUILDDIR}";
 run "mrbsetenv";
 echo "Now Building Larsoft...";
-run "mrb i --generator ninja";
+run "mrb i --generator ninja -j16"; # Choose if using extra cores. 
+#run "mrb i --generator ninja";
 run "cd ..";
 run "mrbslp";
-
-
 echo "SETUP DONE!"
 #########################
