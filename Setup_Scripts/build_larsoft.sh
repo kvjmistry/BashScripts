@@ -71,8 +71,8 @@ then
    echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${experiment}/" >> setup_${code}_${version}_${qual}.sh;
    echo "  " >> setup_${code}_${version}_${qual}.sh;
    echo "echo 'Setting up larbacth to latest version'" >> setup_${code}_${version}_${qual}.sh;
-   echo "run unsetup larbatch" >> setup_${code}_${version}_${qual}.sh;
-   echo "run setup larbatch" >> setup_${code}_${version}_${qual}.sh;
+   echo "run 'unsetup larbatch'" >> setup_${code}_${version}_${qual}.sh;
+   echo "run 'setup larbatch'" >> setup_${code}_${version}_${qual}.sh;
 elif [ $code == "sbndcode" ]
 then
    experiment=sbnd
@@ -104,7 +104,7 @@ run "setup ninja v1_8_2";
 #run "setup larsoft ${Larsoft_ver} -q ${Larsoft_qual}"
 run "setup ${code} ${version} -q ${qual}:prof";
 run "mrb newDev -f";
-run "source local*/setup";
+run "source  local*/setup";
 run "cd srcs";
 #run "mrb g -t ${package} ${package_ver}";
 run "mrb g -t ${version} ${code}";
