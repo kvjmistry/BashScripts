@@ -6,6 +6,8 @@
 
 input="filelist.txt"
 slash="/"
+PREFIX='enstore:';
+SUFFIX='(.*)';
 while IFS= read -r var
 do
   DIR_TO_FILE=$(samweb locate-file ${var} | sed -e "s@${PREFIX}@@" -e "s@${SUFFIX}@@");
