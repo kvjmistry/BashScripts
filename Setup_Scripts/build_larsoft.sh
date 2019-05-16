@@ -64,13 +64,13 @@ if [ $code == "uboonecode" ]
 then
    experiment=uboone
    PREFIX=UB
-   source /grid/fermiapp/products/uboone/setup_uboone.sh
-   echo "run 'source /grid/fermiapp/products/uboone/setup_uboone.sh'" >> setup_${code}_${version}_${qual}.sh;
+   source /cvmfs/uboone.opensciencegrid.org/products/setup_uboone.sh
+   echo "run 'source /cvmfs/uboone.opensciencegrid.org/products/setup_uboone.sh'" >> setup_${code}_${version}_${qual}.sh;
    # Call setup script function
    setup_script_creation 
    echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${experiment}/" >> setup_${code}_${version}_${qual}.sh;
    echo "  " >> setup_${code}_${version}_${qual}.sh;
-   echo "echo 'Setting up larbacth to latest version'" >> setup_${code}_${version}_${qual}.sh;
+   echo "echo 'Setting up larbatch to latest version'" >> setup_${code}_${version}_${qual}.sh;
    echo "run 'unsetup larbatch'" >> setup_${code}_${version}_${qual}.sh;
    echo "run 'setup larbatch'" >> setup_${code}_${version}_${qual}.sh;
 elif [ $code == "sbndcode" ]
@@ -101,7 +101,7 @@ fi
 
 run "Setting up ${code} ${version} -q ${qual}:prof..."
 run "setup ninja v1_8_2";
-#run "setup larsoft ${Larsoft_ver} -q ${Larsoft_qual}"
+#run "setup larsoft ${Larsoft_ver} -q ${Larsoft_qual}:prof"
 run "setup ${code} ${version} -q ${qual}:prof";
 run "mrb newDev -f";
 run "source  local*/setup";
