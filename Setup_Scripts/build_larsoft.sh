@@ -10,10 +10,10 @@ code=${1}
 version=${2}
 qual=${3}
 # Make sure you uncomment the relavent parts
-Larsoft_ver='v06_26_01_13' # use these for builing with larsim etc. 
-Larsoft_qual='e10'
+Larsoft_ver='v08_05_00_07' # use these for builing with larsim etc. 
+Larsoft_qual='e17'
 package='larevt'
-package_ver='v06_26_01'
+package_ver='v08_02_00_06'
 
 ##### AUX FUNCTIONS #####
 run(){
@@ -25,7 +25,7 @@ run(){
 
 # function that creates the meat of the setup script
 setup_script_creation () {
-    run "Creating Setup Script..."
+    echo "Creating Setup Script..."
     echo "run 'setup ${code} ${version} -q ${qual}:prof'" >> setup_${code}_${version}_${qual}.sh;
     echo "run 'setup ninja v1_8_2'"  >> setup_${code}_${version}_${qual}.sh;
     echo "run 'source local*/setup'" >> setup_${code}_${version}_${qual}.sh;
@@ -97,16 +97,17 @@ then
     echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/" >> setup_${code}_${version}_${qual}.sh;
 else
    echo "Invalid experiment code input, enter lariatsoft, uboonecode or sbndcode"
+   return
 fi
 
-run "Setting up ${code} ${version} -q ${qual}:prof..."
+echo "Setting up ${code} ${version} -q ${qual}:prof..."
 run "setup ninja v1_8_2";
 #run "setup larsoft ${Larsoft_ver} -q ${Larsoft_qual}:prof"
 run "setup ${code} ${version} -q ${qual}:prof";
 run "mrb newDev -f";
 run "source  local*/setup";
 run "cd srcs";
-#run "mrb g -t ${package} ${package_ver}";
+#run "mrb g -t ${package_ver} ${package}";
 run "mrb g -t ${version} ${code}";
 run "cd ${MRB_BUILDDIR}";
 run "mrbsetenv";
