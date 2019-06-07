@@ -36,12 +36,11 @@ setup_script_creation () {
     echo "echo '${PREFIX}_PERSISTENT'" >> setup_${code}_${version}_${qual}.sh;
     echo "echo '${PREFIX}DATA'" >> setup_${code}_${version}_${qual}.sh;
     echo "echo '${PREFIX}APP'" >> setup_${code}_${version}_${qual}.sh;
-    echo "echo '${PREFIX}SRCS'" >> setup_${code}_${version}_${qual}.sh;
     echo "   " >> setup_${code}_${version}_${qual}.sh;
-    echo "export ${PREFIX}_SCRATCH=/pnfs/${experiment}/scratch/users/${USER}" >> setup_${code}_${version}_${qual}.sh;
-    echo "export ${PREFIX}_PERSISTENT=/pnfs/${experiment}/persistent/users/${USER}" >> setup_${code}_${version}_${qual}.sh;
-    echo "export ${PREFIX}APP=/${experiment}/app/users/${USER}/" >> setup_${code}_${version}_${qual}.sh;
-    echo "export ${PREFIX}DATA=/${experiment}/data/users/${USER}/" >> setup_${code}_${version}_${qual}.sh;   
+    echo "export ${PREFIX}_SCRATCH=/pnfs/${experiment}/scratch/users/\${USER}" >> setup_${code}_${version}_${qual}.sh;
+    echo "export ${PREFIX}_PERSISTENT=/pnfs/${experiment}/persistent/users/\${USER}" >> setup_${code}_${version}_${qual}.sh;
+    echo "export ${PREFIX}APP=/${experiment}/app/users/\${USER}/" >> setup_${code}_${version}_${qual}.sh;
+    echo "export ${PREFIX}DATA=/${experiment}/data/users/\${USER}/" >> setup_${code}_${version}_${qual}.sh;   
 }
 
 #########################
@@ -68,7 +67,6 @@ then
    echo "run 'source /cvmfs/uboone.opensciencegrid.org/products/setup_uboone.sh'" >> setup_${code}_${version}_${qual}.sh;
    # Call setup script function
    setup_script_creation 
-   echo "export ${PREFIX}SRCS=${PWD}/srcs/${code}/${experiment}/" >> setup_${code}_${version}_${qual}.sh;
    echo "  " >> setup_${code}_${version}_${qual}.sh;
    echo "echo 'Setting up larbatch to latest version'" >> setup_${code}_${version}_${qual}.sh;
    echo "run 'unsetup larbatch'" >> setup_${code}_${version}_${qual}.sh;
